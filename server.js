@@ -22,10 +22,9 @@ var fonts = {
 };
 
 const Pdfmake = require("pdfmake");
-const { dirname } = require("path");
 let pdfmake = new Pdfmake(fonts);
 
-app.post("/", (req, res) => {
+app.post("/student-list", (req, res) => {
   let studentArr = req.body.student;
   let docDefinition = {
     info: {
@@ -81,10 +80,9 @@ app.post("/", (req, res) => {
   let pdfDoc = pdfmake.createPdfKitDocument(docDefinition, {});
   pdfDoc.pipe(fs.createWriteStream("new.pdf"));
   pdfDoc.end();
-  res.send("hello");
 });
 
-app.get("/", (req, res) => {
+app.get("/student-list", (req, res) => {
   res.sendFile(`${__dirname}/new.pdf`);
 });
 
